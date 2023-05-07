@@ -13,17 +13,29 @@ const Home: React.FC = () => {
             });
     }, []);
 
-    const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const files = event.target.files;
-        if (!files || !files.length) {
-            return;
+    const hiddenFileInput = React.useRef<HTMLInputElement>(null);
+    const handleClick = (_: React.MouseEvent<HTMLButtonElement>) => {
+        hiddenFileInput.current!.click();
+    };
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const uploadedFile = event.target.files?.[0];
+
+        if (!uploadedFile) {
+            return alert('select a file!');
         }
 
         const formData = new FormData();
-        formData.append('image', files[0]);
+        formData.append('image', uploadedFile);
 
         axios.post('/images', formData)
-            .then((response) => setImages([...images, response.data]));
+            .then(({data}) => {
+                const newImage: Image = data;
+                setImages(prev => [...prev, newImage]);
+            })
+            .catch((err) => {
+                console.log(err);
+                // TODO: handle errors
+            });
     };
 
     return (
@@ -35,7 +47,13 @@ const Home: React.FC = () => {
                 ))}
             </div>
             <div>
-                <input type="file" name="image" onChange={handleFileChange}/>
+                <button className="upload-btn" onClick={handleClick}>Upload</button>
+                <input
+                    type="file"
+                    ref={hiddenFileInput}
+                    onChange={handleChange}
+                    className="d-none"
+                />
             </div>
         </main>
     );

@@ -1,5 +1,5 @@
 /*
-* Initial font-size for responsiveness 
+* Initial font-size for responsiveness
 */
 
 html {
@@ -10,4 +10,8 @@ body {
   font-size: 1rem; /* 1 rem = 16 pixels */
   font-family: 'Neue Haas Unica', sans-serif;
   color: $color-white;
+}
+
+.d-none {
+  display: none;
 }
