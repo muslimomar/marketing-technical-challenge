@@ -12,6 +12,12 @@ body {
   color: $color-white;
 }
 
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
 .d-none {
   display: none;
 }

@@ -14,9 +14,11 @@ const ImageGrid: React.FC<Props> = ({image, index}) => {
     const isEveryThirdCard = index % 3 === 0;
 
     const [isHovered, setIsHovered] = useState(false);
+
     const handleMouseEnter = () => {
         setIsHovered(true);
     }
+
     const handleMouseLeave = () => {
         setIsHovered(false);
     }
@@ -38,7 +40,7 @@ const ImageGrid: React.FC<Props> = ({image, index}) => {
             <div className={classNames('grid__item__info', {
                 'grid__item__info-hover': isHovered
             })}>
-                <div>
+                <div className="grid__item__info__text__container">
                     <h3>{image.article.title}</h3>
                     {isHovered && <p>{image.article.description}</p>}
                 </div>
