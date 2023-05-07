@@ -2,7 +2,6 @@ import React, {useEffect, useState} from 'react';
 import ImageGrid from '../components/ImageGrid';
 import {Image} from '../interfaces/image.interface';
 import axios from 'axios';
-import classNames from 'classnames';
 
 const Home: React.FC = () => {
     const [images, setImages] = useState<Image[]>([]);
@@ -31,9 +30,9 @@ const Home: React.FC = () => {
         <main className="main">
             <h1 className="main__title">Connect people & spaces</h1>
             <div className="grid">
-                {
-                    images.map((image, index) => (<ImageGrid key={image.imagePath} image={image} index={index}/>))
-                }
+                {images.map((image, index) => (
+                    <ImageGrid key={image.imagePath} image={image} index={index}/>
+                ))}
             </div>
             <div>
                 <input type="file" name="image" onChange={handleFileChange}/>
