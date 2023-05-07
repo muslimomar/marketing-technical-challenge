@@ -38,10 +38,16 @@
       top: 0;
       left: 0;
       padding: 1.2em;
-      background: $color-hover-bg;
       display: flex;
       @include full-size;
       @include rounded-corners;
+      transition-property: background-color;
+      transition-duration: 0.2s;
+      transition-timing-function: ease-out;
+
+      &-hover {
+        background: $color-hover-bg;
+      }
 
       h3 {
         font-size: 1.25em;
@@ -52,7 +58,10 @@
         margin-top: 2em;
       }
 
-      span {
+      button {
+        background: none;
+        border: 0;
+        cursor: pointer;
         align-self: flex-end;
         padding: 0.5em 0.5em;
       }

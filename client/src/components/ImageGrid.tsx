@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Image} from '../interfaces/image.interface';
 import classNames from "classnames";
 import {ReactComponent as ChevronRight} from '../assets/icons/chevron-right.svg';
@@ -13,6 +13,14 @@ const ImageGrid: React.FC<Props> = ({image, index}) => {
     const isFirstCard = index === 0;
     const isEveryThirdCard = index % 3 === 0;
 
+    const [isHovered, setIsHovered] = useState(false);
+    const handleMouseEnter = () => {
+        setIsHovered(true);
+    }
+    const handleMouseLeave = () => {
+        setIsHovered(false);
+    }
+
     return (
         <div
             className={classNames('grid__item', {
@@ -20,18 +28,22 @@ const ImageGrid: React.FC<Props> = ({image, index}) => {
                 'grid__image-tall': isFirstCard,
             })}
             key={image.imagePath}
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
         >
             <img
                 className="grid__item__image"
                 src={getImageUrl(image.imagePath)}
                 alt={image.imagePath}/>
-            {/*<div className="grid__item__info">
+            <div className={classNames('grid__item__info', {
+                'grid__item__info-hover': isHovered
+            })}>
                 <div>
                     <h3>{image.article.title}</h3>
-                    <p>{image.article.description}</p>
+                    {isHovered && <p>{image.article.description}</p>}
                 </div>
-                <span><ChevronRight/></span>
-            </div>*/}
+                {isHovered && <button><ChevronRight/></button>}
+            </div>
         </div>
     );
 };
