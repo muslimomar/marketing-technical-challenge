@@ -1,28 +1,37 @@
 import React, {useEffect, useState} from 'react';
 import ImageGrid from '../components/ImageGrid';
 import {Image} from '../interfaces/image.interface';
-import axios from 'axios';
+import axios, {AxiosError} from 'axios';
+import {ToastContainer, toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import {ErrorResponse} from "../interfaces/api.interface";
 
 const Home: React.FC = () => {
     const [images, setImages] = useState<Image[]>([]);
+
+    const handleError = (error: AxiosError<ErrorResponse>) => {
+        const errors = error.response!.data.errors;
+        errors.forEach((elem) => toast.error(elem.message));
+    }
 
     useEffect(() => {
         axios.get('/images')
             .then((response) => {
                 setImages(response.data);
-            });
+            })
+            .catch(handleError);
     }, []);
 
     const hiddenFileInput = React.useRef<HTMLInputElement>(null);
+
     const handleClick = (_: React.MouseEvent<HTMLButtonElement>) => {
         hiddenFileInput.current!.click();
     };
+
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const uploadedFile = event.target.files?.[0];
 
-        if (!uploadedFile) {
-            return alert('select a file!');
-        }
+        if (!uploadedFile) return;
 
         const formData = new FormData();
         formData.append('image', uploadedFile);
@@ -32,10 +41,7 @@ const Home: React.FC = () => {
                 const newImage: Image = data;
                 setImages(prev => [...prev, newImage]);
             })
-            .catch((err) => {
-                console.log(err);
-                // TODO: handle errors
-            });
+            .catch(handleError);
     };
 
     return (
@@ -53,8 +59,21 @@ const Home: React.FC = () => {
                     ref={hiddenFileInput}
                     onChange={handleChange}
                     className="d-none"
+                    accept="image/png, image/jpeg, image/jpg"
                 />
             </div>
+            <ToastContainer
+                position="bottom-left"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+            />
         </main>
     );
 };
