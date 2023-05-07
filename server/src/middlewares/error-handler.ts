@@ -11,6 +11,7 @@ export const errorHandler = (
         return res.status(err.statusCode).json({errors: err.serializeErrors()});
     }
 
+    // use a production-grade logger like winston or morgan.
     console.log(err);
 
     res.status(400).send({

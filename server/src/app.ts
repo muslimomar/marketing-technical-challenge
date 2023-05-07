@@ -2,6 +2,7 @@ import express from "express";
 import "express-async-errors";
 import path from "path";
 import cors from "cors";
+import multer from "multer";
 
 import {NotFoundError} from "./errors/not-found-error";
 import {errorHandler} from "./middlewares/error-handler";
