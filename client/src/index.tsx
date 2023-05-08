@@ -4,7 +4,9 @@ import axios from 'axios';
 import App from './App';
 import './styles/main.scss';
 
-axios.defaults.baseURL = process.env.REACT_APP_API_URL || 'http://localhost:3001';
+if (process.env.REACT_APP_API_URL) {
+    axios.defaults.baseURL = process.env.REACT_APP_API_URL;
+}
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
