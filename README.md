@@ -1,6 +1,6 @@
 # How to Start the App
 
-This project contains a React front-end application and a Node.js back-end server. Follow the instructions below to start the app.
+This project contains a React front-end application and a Node.js back-end server built with **Express** and **TypeScript**. The front-end is built with **React**, **TypeScript**, and **Sass** for styling. Follow the instructions below to start the app.
 
 ## Starting the Server (Node.js) 
 1. Open terminal window and navigate to the `server` directory:
