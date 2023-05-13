@@ -1,3 +1,8 @@
+
+# Deployed App
+
+You could access the deployed version from here: https://marketing-technical-challenge.herokuapp.com/
+
 # How to Start the App
 
 This project contains a React front-end application and a Node.js back-end server built with **Express** and **TypeScript**. The front-end is built with **React**, **TypeScript**, and **Sass** for styling. Follow the instructions below to start the app.
